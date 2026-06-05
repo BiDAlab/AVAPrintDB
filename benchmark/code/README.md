@@ -141,7 +141,6 @@ All configuration files are available [here](foundational_models/default_config.
 | `evaluation-pairs-csv` | CSV file containing the evaluation pairs | `benchmark/eval_files/evaluation_pairs_CREMA-D_GAGA.csv` others CSVs can be used |
 | `checkpoint` | Path to the model checkpoint used when running in `test` mode | `benchmark/checkpoints/dino-based/checkpoint_dino_trained_cremad_gagavatar.pt` |
 
-### Inference time??
 
 
 ## Graph-based model
@@ -220,13 +219,6 @@ We always use Adam Optimizer, with weight decay 1e-5 and a lr scheduler to reduc
 > In the [graph_model](./graph_model/) folder you can also find a csv file, `delaunay_edges.csv`, with the definition of the graph nodes and edges based on the generated landmarks, necessary to build the graph for the graph-based model.
 
 
-#### HW Resources
-
-
-TBD
-
-
-
 ### Evaluating
 
 #### How to run the code?
@@ -263,8 +255,3 @@ The configuration used for evaluation corresponds to the script's default values
 | `hidden-dim` | Dimension of the hidden layers of the GCN | 64
 | `embedding-dim` | Dimension of the output embedding of the GCN | 256
 
-
-
-## HW resources
-
-Resources used
