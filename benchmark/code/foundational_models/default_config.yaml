@@ -1,0 +1,83 @@
+seed: 2821473037 # Random seed for reproducibility. If set to null, a random seed will be generated at runtime
+
+outputs:
+  root_output: ./outputs_FoundationalModels  # Root directory for all outputs. A folder will be created for each run with the naming convention %Y%m%d_%H%M%S
+  plots_dirname: plots # Directory name for plots, will be created inside the run folder
+
+avatar_dataset:
+  embedding_dir: /mnt/data20TB_video/AVAPrintDB_v0/database/data/embeddings/
+  datasets:  # Only avatar videos obtained from videos from these datasets will be considered. They are filtered by filename (each dataset has a unique filename pattern)
+    # - RAVDESS
+    - CREMA-D
+  generators: # Indicate which avatar generators to use. Each generator should have its own subdirectory inside the root_dir/<dataset_split> directory
+    - GAGA
+    # - LIVE
+    # - HUNY
+  dataset_class: VideoDatasetTripletsFeatsSimple  # It can be VideoDatasetTriplets. More options can be added later
+  dataset_class_kwargs:
+    max_frames: 50  # Number of frames to consider for each video.
+    ktriplets: 6 # Number of positive and negative samples to consider for each anchor
+  cache: false  # Not used right now, but in the future, if set to true, the pipeline will assume that the videos are not mp4 files but pytorch pt files containing the tensors for each video
+
+model:
+  architecture:  # Name of the higher-level architecture to use. This will determine how the backbone(s) are used and combined to produce the final output
+    name: TemporalAttentionPoolingModelNew  # Name of the class that implements the architecture. This class file should be located in src/mapav3/models. Choose from SimpleLSTMModel, TemporalAttentionPoolingModel, TemporalTransformerModel, MultiHeadAttentionPooling
+    kwargs:  # Any additional arguments needed to create the architecture. They will depend on the architecture chosen. See the documentation for each architecture
+      project_dim: 32
+      output_dim: 16
+      num_heads: 2
+      num_layers: 2
+      max_seq_len: 600
+      aggregation: cls
+
+training:
+  optimizer:
+    name: Adam   # Choose from: Adam, SGD. More to be added
+    kwargs:  # Additional arguments needed to create the optimizer
+      lr: 0.0001
+      weight_decay: 0.00005
+  batch_size: 32  # Batch size for training
+  n_epochs: 10 # 1000  # Number of epochs to train the model
+  shuffle: true # Whether to shuffle the dataset at the beginning of each epoch
+  num_workers: 8 # Number of workers to use for data loading
+  checkpoint: # Checkpoint configuration
+    save_best: true # Whether to save the best model based on validation loss. If validation is not performed, it will be based on training loss
+    save_last: true # Whether to save the last model at the end of the training
+
+loss:
+  name: TripletMarginWithDistanceLoss # Choose from: TripletLoss, TripletMarginWithDistanceLoss. More to be added
+  kwargs: # Additional arguments needed to create the loss function
+    margin: 0.8
+    distance_function: cosine_distance
+
+traindataExp:
+  do: true
+
+validation:
+  do: true # Whether to perform validation during training. The generators and datasets used will be the same as in the training block
+  batch_size: 32 # Batch size for validation
+  shuffle: false 
+  num_workers: 8
+  every_n_epochs: 5 # How often to perform validation during training, in epochs. If set to 0, validation will not be performed during training
+
+evaluation:
+  do: true
+  batch_size: 32
+  num_workers: 4
+  avatar_dataset:
+    dataset_class: EvalDatasetFeatsWindows  # Dataset class to use for evaluation.
+    dataset_class_kwargs:
+      evaluation_pairs_csv: 
+        - ./benchmark/eval_files/evaluation_pairs_RAVDESS_GAGA.csv
+        # - ./benchmark/eval_files/evaluation_pairs_RAVDESS_HUNY.csv
+        # - ./benchmark/eval_files/evaluation_pairs_RAVDESS_LIVE.csv
+        # - ./benchmark/eval_files/evaluation_pairs_CREMA-D_GAGA.csv
+        # - ./benchmark/eval_files/evaluation_pairs_CREMA-D_HUNY.csv
+        # - ./benchmark/eval_files/evaluation_pairs_CREMA-D_LIVE.csv
+      max_frames: 50 # Number of frames to consider for each video.
+  metric: euclidean
+  checkpoint: outputs_FoundationalModels/default_config_CREMA-D_GAGA_60_6_4_CLIP_20260528_170547/checkpoints/best_checkpoint.pth # only used if run mode is TEST, otherwise the evaluation is done using the last/best checkpoints from the training run
+  score_threshold: null
+
+
+  
