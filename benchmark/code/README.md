@@ -100,7 +100,7 @@ The configuration used for training corresponds to the script's default values, 
 | `lr` | Learning rate | `0.0001` |
 | `weight-decay` | Weight-decay coefficient | `0.00005` |
 | `batch-size` | Training batch size | `32` |
-| `n-epochs` | Maximum number of training epochs | `10` |
+| `n-epochs` | Maximum number of training epochs | `100` |
 | `validation-frequency` | Number of epochs between validation runs | `5` |
 
 We always use Adam Optimizer, with weight decay 1e-5 and a lr scheduler to reduce lr to a tenth after 100 epochs.
