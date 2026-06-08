@@ -18,10 +18,10 @@ Official repository for:
 </h3>
 
 <h5 align="center">
-    <a href="https://scholar.google.com/citations?user=xYLElMkAAAAJ&hl=es">Laura Pedrouzo Rodriguez</a> &emsp;
+    <a href="https://scholar.google.com/citations?user=xYLElMkAAAAJ&hl=es">Laura Pedrouzo-Rodriguez</a> &emsp;
     <a href="https://scholar.google.com/citations?user=Nq3NyHYAAAAJ&hl=en">Luis F. Gomez</a> &emsp;
-    <a href="https://rubentolosana.github.io/">Ruben Tolosana Moranchel</a>  &emsp;<br>
-    <a href="https://scholar.google.com/citations?user=KYMQ0tsAAAAJ&hl=es">Ruben Vera Rodriguez</a>  &emsp;
+    <a href="https://rubentolosana.github.io/">Ruben Tolosana</a>  &emsp;<br>
+    <a href="https://scholar.google.com/citations?user=KYMQ0tsAAAAJ&hl=es">Ruben Vera-Rodriguez</a>  &emsp;
     <a href="https://scholar.google.com/citations?hl=es&user=u0e5cXkAAAAJ">Roberto Daza</a>  &emsp;
     <a href="https://scholar.google.com/citations?user=yRP16B4AAAAJ&hl=es">Aythami Morales</a>  &emsp;
   <a href="https://scholar.google.com/citations?user=HbG_NOoAAAAJ&hl=en">Julian Fierrez</a>  &emsp;
